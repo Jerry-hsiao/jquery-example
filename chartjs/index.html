@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script src="Utils.js"></script>
+</head>
+<body>
+	<div style="width:800px">
+		<canvas id="myChart"></canvas>
+	</div>
+	
+	<script type="text/javascript">
+		var element = document.getElementById('myChart')
+		let canvasObj = element.getContext('2d')
+
+		let stocks = [
+			{ name : '鴻海' , date : '2017/01/01' , price : 80},
+			{ name : '鴻海' , date : '2017/01/02' , price : 82},
+			{ name : '鴻海' , date : '2017/01/03' , price : 85},
+			{ name : '鴻海' , date : '2017/01/04' , price : 88},
+			{ name : '鴻海' , date : '2017/01/05' , price : 79},
+			{ name : '鴻海' , date : '2017/01/01' , price : 80},
+			{ name : '鴻海' , date : '2017/01/02' , price : 82},
+			{ name : '鴻海' , date : '2017/01/03' , price : 85},
+			{ name : '鴻海' , date : '2017/01/04' , price : 88},
+			{ name : '鴻海' , date : '2017/01/05' , price : 79},
+			{ name : '鴻海' , date : '2017/01/01' , price : 80},
+			{ name : '鴻海' , date : '2017/01/02' , price : 82},
+			{ name : '鴻海' , date : '2017/01/03' , price : 85},
+			{ name : '鴻海' , date : '2017/01/04' , price : 88},
+			{ name : '鴻海' , date : '2017/01/05' , price : 79},
+			{ name : '鴻海' , date : '2017/01/01' , price : 80},
+			{ name : '鴻海' , date : '2017/01/02' , price : 82},
+			{ name : '鴻海' , date : '2017/01/03' , price : 85},
+			{ name : '鴻海' , date : '2017/01/04' , price : 88},
+			{ name : '鴻海' , date : '2017/01/05' , price : 79},
+			{ name : '鴻海' , date : '2017/01/05' , price : 79},
+		]
+
+		let valX = []
+		let valY = []
+		let stockName = null
+		let ma20Tmp = []
+		let ma40Tmp = []
+		let ma60Tmp = []
+		stocks.forEach((stock , index)=>{
+			ma20Tmp.push(stock.price)	
+			if(ma20Tmp.length == 20){
+				let sum = ma20Tmp.reduce((temp , val)=>{
+					return temp + val
+				})
+				let ma20 = sum / 20
+				console.log('ma20' , ma20)
+				ma20Tmp.splice(0,1)
+			}
+		})
+		// foreach stocks  [end]
+
+		// 0 
+		stocks.forEach((stock,index)=>{
+			valX.push(stock.date)
+			valY.push(stock.price)
+
+			if(stockName == null){
+				stockName = stock.name
+			}
+		})
+		ChartUtil.drawLineChart(canvasObj , stockName , valX , valY)
+	</script>
+</body>
+</html>
